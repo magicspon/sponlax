@@ -2,24 +2,20 @@
 
 ## Install
 
-`npm install mud-from-to` or `yarn add mud-from-to`
+`npm install sponlax` or `yarn add sponlax`
 
 ## Usage example
 
+Demo: http://sponlax.surge.sh/
 
 ```
-import 'fromTo' from 'mud-from-to'
+import 'SponLax' from 'sponlax'
 
-fromTo({
-    start: 0, 
-    end: 100,
-    duration: 1000, // default
-    easing(t, b, c, d) {
-      if((t /= d / 2) < 1) return c / 2 * t * t + b
-      return -c / 2 * ((--t) * (t - 2) - 1) + b
-    } // default
-}, (v) => console.log(v)).then((v) => {
-    console.log('done', v)
+new SponLax('[data-item]', {
+    observerLoop({ $node }) {
+        const { top } = $node.getBoundingClientRect()
+        const { speed } = $node.dataset
+        $node.style.transform = `translate3d(0, ${top * parseFloat(speed)}px, 0)`
+    }
 })
-
 ```
