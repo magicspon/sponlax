@@ -3,18 +3,23 @@
 	"version": "0.0.1",
 	"main": "dist/index.min.js",
 	"devDependencies": {
+		"babel-core": "^6.26.0",
+		"babel-plugin-transform-class-properties": "^6.24.1",
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"babel-preset-env": "^1.6.0",
-		"jest": "^21.0.2",
 		"rollup": "^0.46.0",
 		"rollup-plugin-babel": "^3.0.2",
+		"rollup-plugin-commonjs": "^8.2.6",
+		"rollup-plugin-node-resolve": "^3.0.0",
 		"rollup-plugin-uglify": "^2.0.1"
 	},
 	"scripts": {
 		"build": "rollup -c",
 		"dev": "NODE_ENV=development rollup -c -w"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"description": "Intersection Observer + raf... parallax?!",
 	"repository": {
 		"type": "git",

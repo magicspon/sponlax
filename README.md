@@ -1,4 +1,4 @@
-# Simple requestAnimationFrame helper
+# Intersection Observer + requestAnimationFrame... do stuff when shit's in the view
 
 ## Install
 
