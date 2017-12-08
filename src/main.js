@@ -59,13 +59,10 @@ export default class SponLax {
 				if (shouldUnObserve($node)) {
 					observer.unobserve($node)
 				}
-				if (!this.within($node)) {
-					this.markAsWithin($node)
-				}
+
+				!this.within($node) && this.markAsWithin($node)
 			} else {
-				if (this.within($node)) {
-					this.markAsNotWithin($node)
-				}
+				this.within($node) && this.markAsNotWithin($node)
 			}
 
 			this.blobs = this.nodes
