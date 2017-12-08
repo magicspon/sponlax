@@ -3,12 +3,14 @@ export default class SponLax {
 		rootMargin: '0px',
 		threshold: 0,
 		shouldUnObserve: () => false,
-		observerLoop({ $node }) {
+		inview({ $node }) {
 			const { top } = $node.getBoundingClientRect()
 			const { speed } = $node.dataset
 			$node.style.transform = `translate3d(0, ${top * parseFloat(speed)}px, 0)`
 		}
 	}
+
+	prevFrame = -1
 
 	constructor(selector = '[data-inview]', options = {}) {
 		this.nodes = [...document.querySelectorAll(selector)].map((node, index) => {
@@ -35,8 +37,15 @@ export default class SponLax {
 	markAsNotWithin = node => node.setAttribute('data-inview', 'false')
 
 	loop = () => {
-		const { observerLoop } = this.options
-		this.blobs.forEach(observerLoop)
+		const { inview } = this.options
+
+		if (window.pageYOffset === this.prevFrame) {
+			this.handle = requestAnimationFrame(this.loop)
+			return
+		}
+
+		this.prevFrame = window.pageYOffset
+		this.blobs.forEach(inview)
 		this.handle = requestAnimationFrame(this.loop)
 	}
 

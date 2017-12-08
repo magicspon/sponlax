@@ -1,6 +1,6 @@
 {
 	"name": "sponlax",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"main": "dist/index.min.js",
 	"devDependencies": {
 		"babel-core": "^6.26.0",
@@ -17,9 +17,7 @@
 		"build": "rollup -c",
 		"dev": "NODE_ENV=development rollup -c -w"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"description": "Intersection Observer + raf... parallax?!",
 	"repository": {
 		"type": "git",
@@ -30,5 +28,6 @@
 	"bugs": {
 		"url": "https://github.com/magicspon/sponlax/issues"
 	},
-	"homepage": "https://github.com/magicspon/sponlax#readme"
+	"homepage": "https://github.com/magicspon/sponlax#readme",
+	"dependencies": {}
 }
