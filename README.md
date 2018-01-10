@@ -11,7 +11,7 @@
 Demo: http://sponlax.surge.sh/
 
 ```
-import 'SponLax' from 'sponlax'
+import SponLax from 'sponlax'
 
 new SponLax('[data-item]', {
     inview({ $node }) {
