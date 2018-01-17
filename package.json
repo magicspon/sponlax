@@ -1,6 +1,6 @@
 {
 	"name": "sponlax",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"main": "dist/index.min.js",
 	"devDependencies": {
 		"babel-core": "^6.26.0",
@@ -11,6 +11,7 @@
 		"rollup-plugin-babel": "^3.0.2",
 		"rollup-plugin-commonjs": "^8.2.6",
 		"rollup-plugin-node-resolve": "^3.0.0",
+		"rollup-plugin-filesize": "^1.5.0",
 		"rollup-plugin-uglify": "^2.0.1"
 	},
 	"scripts": {

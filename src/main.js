@@ -3,11 +3,9 @@ export default class SponLax {
 		rootMargin: '0px',
 		threshold: 0,
 		shouldUnObserve: () => false,
-		inview({ $node }) {
-			const { top } = $node.getBoundingClientRect()
-			const { speed } = $node.dataset
-			$node.style.transform = `translate3d(0, ${top * parseFloat(speed)}px, 0)`
-		}
+		onEnter: () => {},
+		onLeave: () => {},
+		inview: () => {}
 	}
 
 	prevFrame = -1
@@ -28,29 +26,36 @@ export default class SponLax {
 
 		this.nodes.forEach($node => observer.observe($node))
 
-		this.blobs = []
+		this.blobs = new Set()
 		this.handle = null
+		this.prevFrame = undefined
 	}
 
 	within = node => node.getAttribute('data-inview') === 'true'
+
 	markAsWithin = node => node.setAttribute('data-inview', 'true')
+
 	markAsNotWithin = node => node.setAttribute('data-inview', 'false')
 
 	loop = () => {
-		const { inview } = this.options
-
-		if (window.pageYOffset === this.prevFrame) {
+		if (this.y === this.prevFrame) {
 			this.handle = requestAnimationFrame(this.loop)
 			return
 		}
 
-		this.prevFrame = window.pageYOffset
-		this.blobs.forEach(inview)
+		this.prevFrame = this.y
+
+		const { inview } = this.options
+		;[...this.blobs].forEach(inview)
 		this.handle = requestAnimationFrame(this.loop)
 	}
 
+	update = y => {
+		this.y = y || window.pageYOffset
+	}
+
 	onIntersection = () => (entries, observer) => {
-		const { shouldUnObserve } = this.options
+		const { shouldUnObserve, onEnter, onLeave } = this.options
 
 		entries.forEach(entry => {
 			const { target: $node, isIntersecting } = entry
@@ -60,17 +65,19 @@ export default class SponLax {
 					observer.unobserve($node)
 				}
 
+				this.blobs.add($node)
+				onEnter($node)
+
 				!this.within($node) && this.markAsWithin($node)
 			} else {
 				this.within($node) && this.markAsNotWithin($node)
-			}
+				onLeave($node)
 
-			this.blobs = this.nodes
-				.filter(this.within)
-				.map($node => ({ $node, entry }))
+				this.blobs.delete($node)
+			}
 		})
 
-		if (this.blobs.length > 0 && this.handle === null) {
+		if (this.blobs.size > 0 && this.handle === null) {
 			this.loop()
 		}
 
