@@ -11,11 +11,6 @@ export default class SponLax {
 	prevFrame = -1
 
 	constructor(selector = '[data-inview]', options = {}) {
-		this.nodes = [...document.querySelectorAll(selector)].map((node, index) => {
-			node.setAttribute('data-key', index)
-			return node
-		})
-
 		this.options = { ...this.defaults, ...options }
 
 		const { rootMargin, threshold } = this.options
@@ -24,34 +19,28 @@ export default class SponLax {
 			threshold
 		})
 
-		this.nodes.forEach($node => observer.observe($node))
+		this.nodes = [...document.querySelectorAll(selector)].map(node => {
+			observer.observe($node)
+			return node
+		})
 
-		this.blobs = new Set()
+		this.elements = new Set()
 		this.handle = null
-		this.prevFrame = undefined
 	}
 
 	within = node => node.getAttribute('data-inview') === 'true'
 
-	markAsWithin = node => node.setAttribute('data-inview', 'true')
-
-	markAsNotWithin = node => node.setAttribute('data-inview', 'false')
-
 	loop = () => {
-		if (this.y === this.prevFrame) {
+		if (window.pageYOffset === this.prevFrame) {
 			this.handle = requestAnimationFrame(this.loop)
 			return
 		}
 
-		this.prevFrame = this.y
+		this.prevFrame = window.pageYOffset
 
 		const { inview } = this.options
-		;[...this.blobs].forEach(inview)
+		;[...this.elements].forEach(inview)
 		this.handle = requestAnimationFrame(this.loop)
-	}
-
-	update = y => {
-		this.y = y || window.pageYOffset
 	}
 
 	onIntersection = () => (entries, observer) => {
@@ -65,23 +54,25 @@ export default class SponLax {
 					observer.unobserve($node)
 				}
 
-				this.blobs.add($node)
+				$node._props = entry
+
+				this.elements.add($node)
 				onEnter($node)
 
-				!this.within($node) && this.markAsWithin($node)
+				!this.within($node) && node.setAttribute('data-inview', 'true')
 			} else {
-				this.within($node) && this.markAsNotWithin($node)
+				this.within($node) && node.setAttribute('data-inview', 'false')
 				onLeave($node)
 
-				this.blobs.delete($node)
+				this.elements.delete($node)
 			}
 		})
 
-		if (this.blobs.size > 0 && this.handle === null) {
+		if (this.elements.size > 0 && this.handle === null) {
 			this.loop()
 		}
 
-		if (this.blobs.length === 0) {
+		if (this.elements.length === 0) {
 			cancelAnimationFrame(this.handle)
 			this.handle = null
 		}

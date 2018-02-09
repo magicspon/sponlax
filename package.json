@@ -1,6 +1,6 @@
 {
 	"name": "sponlax",
-	"version": "0.2.0",
+	"version": "1.0.0",
 	"main": "dist/index.min.js",
 	"devDependencies": {
 		"babel-core": "^6.26.0",
