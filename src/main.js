@@ -19,9 +19,9 @@ export default class SponLax {
 			threshold
 		})
 
-		this.nodes = [...document.querySelectorAll(selector)].map(node => {
+		this.nodes = [...document.querySelectorAll(selector)].map($node => {
 			observer.observe($node)
-			return node
+			return $node
 		})
 
 		this.elements = new Set()
@@ -59,9 +59,9 @@ export default class SponLax {
 				this.elements.add($node)
 				onEnter($node)
 
-				!this.within($node) && node.setAttribute('data-inview', 'true')
+				!this.within($node) && $node.setAttribute('data-inview', 'true')
 			} else {
-				this.within($node) && node.setAttribute('data-inview', 'false')
+				this.within($node) && $node.setAttribute('data-inview', 'false')
 				onLeave($node)
 
 				this.elements.delete($node)
