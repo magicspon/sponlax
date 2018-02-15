@@ -8,27 +8,40 @@ export default class SponLax {
 		inview: () => {}
 	}
 
+	constructor(selector = '[data-inview]', options = {}) {
+		this.update(selector, options)
+	}
+
 	prevFrame = -1
 
-	constructor(selector = '[data-inview]', options = {}) {
+	within = node => node.getAttribute('data-inview') === 'true'
+
+	disconnect = () => {
+		if (this.observer) {
+			this.elements.clear()
+			this.observer.disconnect()
+			cancelAnimationFrame(this.handle)
+		}
+	}
+
+	update = (selector = '[data-inview]', options = {}) => {
 		this.options = { ...this.defaults, ...options }
 
 		const { rootMargin, threshold } = this.options
-		const observer = new IntersectionObserver(this.onIntersection(), {
+
+		this.observer = new IntersectionObserver(this.onIntersection(), {
 			rootMargin,
 			threshold
 		})
 
 		this.nodes = [...document.querySelectorAll(selector)].map($node => {
-			observer.observe($node)
+			this.observer.observe($node)
 			return $node
 		})
 
 		this.elements = new Set()
 		this.handle = null
 	}
-
-	within = node => node.getAttribute('data-inview') === 'true'
 
 	loop = () => {
 		if (window.pageYOffset === this.prevFrame) {
