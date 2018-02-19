@@ -49,10 +49,14 @@ export default class SponLax {
 			return
 		}
 
+		const direction = this.prevFrame > window.pageYOffset ? 'up' : 'down'
+
 		this.prevFrame = window.pageYOffset
 
 		const { inview } = this.options
-		;[...this.elements].forEach(inview)
+		;[...this.elements].forEach(node => {
+			inview(node, direction)
+		})
 		this.handle = requestAnimationFrame(this.loop)
 	}
 
@@ -68,7 +72,6 @@ export default class SponLax {
 				}
 
 				$node._props = entry
-
 				this.elements.add($node)
 				onEnter($node)
 
