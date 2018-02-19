@@ -1,6 +1,6 @@
 {
 	"name": "sponlax",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"main": "dist/index.min.js",
 	"devDependencies": {
 		"babel-core": "^6.26.0",
@@ -10,8 +10,8 @@
 		"rollup": "^0.46.0",
 		"rollup-plugin-babel": "^3.0.2",
 		"rollup-plugin-commonjs": "^8.2.6",
-		"rollup-plugin-node-resolve": "^3.0.0",
 		"rollup-plugin-filesize": "^1.5.0",
+		"rollup-plugin-node-resolve": "^3.0.0",
 		"rollup-plugin-uglify": "^2.0.1"
 	},
 	"scripts": {
@@ -30,5 +30,7 @@
 		"url": "https://github.com/magicspon/sponlax/issues"
 	},
 	"homepage": "https://github.com/magicspon/sponlax#readme",
-	"dependencies": {}
+	"dependencies": {
+		"sponlax": "^1.0.3"
+	}
 }

@@ -55,7 +55,7 @@ export default class SponLax {
 
 		const { inview } = this.options
 		;[...this.elements].forEach(node => {
-			inview(node, direction)
+			inview(node, direction, this.prevFrame)
 		})
 		this.handle = requestAnimationFrame(this.loop)
 	}
