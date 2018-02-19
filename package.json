@@ -29,8 +29,5 @@
 	"bugs": {
 		"url": "https://github.com/magicspon/sponlax/issues"
 	},
-	"homepage": "https://github.com/magicspon/sponlax#readme",
-	"dependencies": {
-		"sponlax": "^1.0.3"
-	}
+	"homepage": "https://github.com/magicspon/sponlax#readme"
 }

@@ -1192,6 +1192,12 @@ source-map@^0.5.6, source-map@~0.5.1:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
+sponlax@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/sponlax/-/sponlax-1.0.4.tgz#1b7ac856a282f12529ad5b64f6ff921577f44675"
+  dependencies:
+    sponlax "^1.0.3"
+
 sponlax@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sponlax/-/sponlax-1.0.3.tgz#9040ad3d7c5c84f50703a2dc1f7e1dfb443c64f6"
