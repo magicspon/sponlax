@@ -65,13 +65,13 @@ export default class SponLax {
 
 		entries.forEach(entry => {
 			const { target: $node, isIntersecting } = entry
+			$node._props = entry
 
 			if (isIntersecting) {
 				if (shouldUnObserve($node)) {
 					observer.unobserve($node)
 				}
 
-				$node._props = entry
 				this.elements.add($node)
 				onEnter($node)
 
