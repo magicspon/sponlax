@@ -9,7 +9,11 @@
 ```
 import SponLax from 'sponlax'
 
-new SponLax('[data-item]', {
+
+<div data-motion data-spon-track>track on scroll when in view</div>
+<div data-motion>Just onEnter and onLeave events triggered</div>
+
+new SponLax('[data-motion]', {
     rootMargin: '0px',
     threshold: 0,
     shouldUnObserve: () => false,
