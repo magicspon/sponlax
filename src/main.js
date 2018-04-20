@@ -95,7 +95,10 @@ export default class SponLax {
 	intersectNode = entry => {
 		const { shouldUnObserve, onEnter, onLeave } = this.options
 		const { target: $node, isIntersecting } = entry
-		const { sponlaxKey: key, sponTrack: track } = $node.dataset
+
+		const key = $node.getAttribute('data-spon-key')
+		const track = $node.getAttribute('data-spon-track')
+		
 		$node._props = entry
 
 		if (isIntersecting) {
