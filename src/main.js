@@ -97,7 +97,7 @@ export default class SponLax {
 		const { target: $node, isIntersecting } = entry
 
 		const key = $node.getAttribute('data-spon-key')
-		const track = $node.getAttribute('data-spon-track')
+		const track = $node.hasAttribute('data-spon-track')
 		
 		$node._props = entry
 
